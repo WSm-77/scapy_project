@@ -1,8 +1,8 @@
 services:
   host:
     build:
-      context: .
-      dockerfile: Dockerfile.host
+      context: ..
+      dockerfile: docker/Dockerfile.host
     container_name: host
     hostname: host
     cap_add:
@@ -15,8 +15,8 @@ services:
 
   sniffer:
     build:
-      context: .
-      dockerfile: Dockerfile.sniffer
+      context: ..
+      dockerfile: docker/Dockerfile.sniffer
     container_name: sniffer
     cap_add:
       - NET_ADMIN

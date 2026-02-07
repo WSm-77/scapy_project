@@ -19,6 +19,6 @@ COPY . ./
 
 RUN uv sync
 
-ENTRYPOINT ["uv", "run", "python", "/app/sniffer.py"]
+ENTRYPOINT ["uv", "run", "python", "./src/sniffer.py"]
 
 CMD [ "--help" ]
