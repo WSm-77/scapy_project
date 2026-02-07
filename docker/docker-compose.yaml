@@ -40,6 +40,33 @@ services:
     stdin_open: true
     tty: true
 
+  rip-router:
+    image: frrouting/frr:latest
+    container_name: rip-router
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    mem_limit: 2g
+    sysctls:
+      - net.ipv4.ip_forward=1
+    networks:
+      net:
+        ipv4_address: 10.0.0.254
+    volumes:
+      - ./frr/daemons:/etc/frr/daemons
+      - ./frr/frr.conf:/etc/frr/frr.conf
+      - ./frr/vtysh.conf:/etc/frr/vtysh.conf
+    privileged: true
+    ports:
+      - "7946:7946"  # VTY port (telnet)
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 4096
+      memlock:
+        soft: 65536
+        hard: 65536
+
 networks:
   net:
     driver: bridge
