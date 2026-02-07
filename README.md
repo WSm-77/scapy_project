@@ -6,6 +6,9 @@ containerized environment with a fake router that sends RIP updates, a packet sn
 FRR-based RIP router to act as a real routing neighbor. The goal is to explore routing behavior and understand how
 malicious RIP updates can influence route selection.
 
+> [!NOTE]  
+> This repository is intended for educational use in networking classes or labs.
+
 ## 📦 What’s inside
 
 - 🛰️ **Fake router**: Sends RIP v2 updates based on a YAML configuration.
@@ -17,7 +20,7 @@ malicious RIP updates can influence route selection.
 
 Below I present how **fake-router** changes route to `142.250.120.0/24` network, so packets are sent via **fake-router** when pinging **google.com**.
 
-<video src="./resources/fake_router.mp4" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/504714b4-ba9c-48b3-a3c9-2b8ee1dcd8d6" controls width="100%"></video>
 
 ## 🗂️ Project layout
 
@@ -32,13 +35,18 @@ Below I present how **fake-router** changes route to `142.250.120.0/24` network,
 - Docker and Docker Compose
 - (Optional) Python 3.12+ if running locally without containers
 
-## ▶️ Running with Docker
+## 🐋 Running with Docker
+
+To build and run all containers use the following command:
 
 ```bash
 docker compose -f docker/docker-compose.yaml up --build
 ```
 
 The `host` container is configured to route traffic through the `rip-router` container (`10.0.0.254`).
+
+> [!TIP]
+> Use `docker exec -it host /bin/bash` to attach virtual terminal which can be used to test `ping` or `traceroute` commands.
 
 ## ⚙️ Configuration
 
@@ -48,7 +56,3 @@ RIP update parameters are stored in YAML files under `src/conf/`. Example fields
 - `mask` – subnet mask
 - `metric` – route metric
 - `nextHop` – optional next hop address
-
-## 📝 Notes
-
-This repository is intended for educational use in networking classes or labs.
