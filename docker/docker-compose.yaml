@@ -3,8 +3,10 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile.router
-    container_name: fake_router
+    container_name: fake-router
     hostname: router
+    command: >
+      --config ./src/conf/fake_route_to_google.yaml
     cap_add:
       - NET_ADMIN
     networks:
@@ -73,4 +75,3 @@ networks:
     ipam:
       config:
         - subnet: 10.0.0.0/24
-          gateway: 10.0.0.1

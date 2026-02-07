@@ -19,5 +19,5 @@ COPY . ./
 
 RUN uv sync
 
-CMD ["uv", "run", "python", "./src/fake_router.py"]
+ENTRYPOINT ["uv", "run", "python", "./src/fake_router.py"]
 
