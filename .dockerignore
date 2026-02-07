@@ -1,0 +1,7 @@
+.venv
+.git
+__pycache__/
+LICENSE
+README.md
+docker-compose.yml
+Dockerfile*
