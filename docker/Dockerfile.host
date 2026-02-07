@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libpcap0.8  curl ca-certificates net-tools iputils-ping\
+    && apt-get install -y --no-install-recommends libpcap0.8  curl ca-certificates net-tools iputils-ping traceroute\
     && rm -rf /var/lib/apt/lists/*
 
 # Download the latest installer
@@ -19,4 +19,4 @@ COPY . ./
 
 RUN uv sync
 
-CMD [ "sleep", "infinity" ]
+CMD [ "bash", "-c", "route del default && route add default gw 10.0.0.254 && sleep infinity" ]
