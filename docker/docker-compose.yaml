@@ -1,4 +1,16 @@
 services:
+  router:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.router
+    container_name: fake_router
+    hostname: router
+    cap_add:
+      - NET_ADMIN
+    networks:
+      net:
+        ipv4_address: 10.0.0.2
+
   host:
     build:
       context: ..
