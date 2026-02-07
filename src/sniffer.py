@@ -16,7 +16,7 @@ class Sniffer:
     def process_packet(self, packet):
         rip_packet = packet[RIP]
         self.logger.info(packet.summary())
-        self.logger.info(rip_packet.show())
+        self.logger.debug(rip_packet.show())
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Simple packet sniffer using Scapy")
