@@ -1,0 +1,24 @@
+
+# Minimal FRR daemons for RIP v2
+zebra=yes
+ripd=yes
+bgpd=no
+ospfd=no
+ospf6d=no
+ripngd=no
+isisd=no
+pimd=no
+ldpd=no
+nhrpd=no
+eigrpd=no
+babeld=no
+sharpd=no
+pbrd=no
+bfdd=no
+fabricd=no
+
+vtysh_enable=yes
+watchfrr_enable=yes
+
+zebra_options="-A 0.0.0.0"
+ripd_options="-A 0.0.0.0"

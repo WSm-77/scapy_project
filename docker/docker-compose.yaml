@@ -1,0 +1,77 @@
+services:
+  router:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.router
+    container_name: fake-router
+    hostname: router
+    command: >
+      --config ./src/conf/fake_route_to_google.yaml
+    cap_add:
+      - NET_ADMIN
+    networks:
+      net:
+        ipv4_address: 10.0.0.2
+
+  host:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.host
+    container_name: host
+    hostname: host
+    cap_add:
+      - NET_ADMIN
+    networks:
+      net:
+        ipv4_address: 10.0.0.20
+    stdin_open: true
+    tty: true
+
+  sniffer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.sniffer
+    container_name: sniffer
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net:
+        ipv4_address: 10.0.0.10
+    command: ["-i", "eth0"]
+    stdin_open: true
+    tty: true
+
+  rip-router:
+    image: frrouting/frr:latest
+    container_name: rip-router
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    mem_limit: 2g
+    sysctls:
+      - net.ipv4.ip_forward=1
+    networks:
+      net:
+        ipv4_address: 10.0.0.254
+    volumes:
+      - ./frr/daemons:/etc/frr/daemons
+      - ./frr/frr.conf:/etc/frr/frr.conf
+      - ./frr/vtysh.conf:/etc/frr/vtysh.conf
+    privileged: true
+    ports:
+      - "7946:7946"  # VTY port (telnet)
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 4096
+      memlock:
+        soft: 65536
+        hard: 65536
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
