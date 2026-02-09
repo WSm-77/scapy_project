@@ -77,6 +77,8 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.30
+    volumes:
+      - grafana-data:/var/lib/grafana
 
   loki:
     image: grafana/loki:latest
@@ -109,3 +111,6 @@ networks:
     ipam:
       config:
         - subnet: 10.0.0.0/24
+
+volumes:
+  grafana-data:
