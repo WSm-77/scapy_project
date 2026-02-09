@@ -26,6 +26,8 @@ services:
         ipv4_address: 10.0.0.20
     stdin_open: true
     tty: true
+    volumes:
+      - host-logs:/var/log
 
   sniffer:
     build:
@@ -77,6 +79,10 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.30
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - grafana-config:/etc/grafana
+      - grafana-logs:/var/log/grafana
 
   loki:
     image: grafana/loki:latest
@@ -95,6 +101,7 @@ services:
     container_name: promtail
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - host-logs:/var/log:ro
       - ./promtail-config.yaml:/etc/promtail/config.yaml
     command: -config.file=/etc/promtail/config.yaml
     networks:
@@ -109,3 +116,9 @@ networks:
     ipam:
       config:
         - subnet: 10.0.0.0/24
+
+volumes:
+  grafana-storage:
+  grafana-config:
+  grafana-logs:
+  host-logs:

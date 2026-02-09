@@ -16,3 +16,12 @@ scrape_configs:
           __docker_container_name__: "${container_name}"
     pipeline_stages:
       - docker: {}
+
+  - job_name: host_operations
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: host_operations
+          __path__: /var/log/host_operations.log
+          container: host
