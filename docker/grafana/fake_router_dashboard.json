@@ -1,0 +1,159 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 0,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "dfcrh51bzpaf4b"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "showControls": false,
+        "showTime": false,
+        "sortOrder": "Ascending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "12.3.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "dfcrh51bzpaf4b"
+          },
+          "direction": "forward",
+          "editorMode": "builder",
+          "expr": "{filename=~\"/var/lib/docker/containers/b9048867bcfd404f80a91b63a3f445a58f31816eb531d7b665b70696a9117b04/b9048867bcfd404f80a91b63a3f445a58f31816eb531d7b665b70696a9117b04-json\\\\.log|/var/lib/docker/containers/f4d157656797e99c244dbcfa7c6fbfd7a9c7a9ff2770d669bc355e75586a65a3/f4d157656797e99c244dbcfa7c6fbfd7a9c7a9ff2770d669bc355e75586a65a3-json\\\\.log\"}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Fake Router",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "dfcrh51bzpaf4b"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "showControls": false,
+        "showTime": false,
+        "sortOrder": "Ascending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "12.3.2",
+      "targets": [
+        {
+          "direction": "forward",
+          "editorMode": "builder",
+          "expr": "{filename=\"/var/lib/docker/containers/b40974000c474019d200d5487f2c00b1e1505bb53de48ac5bf89123c7cfc8d0d/b40974000c474019d200d5487f2c00b1e1505bb53de48ac5bf89123c7cfc8d0d-json.log\"}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Sniffer",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "dfcrh51bzpaf4b"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "showControls": false,
+        "showTime": true,
+        "sortOrder": "Ascending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "12.3.2",
+      "targets": [
+        {
+          "direction": "forward",
+          "editorMode": "builder",
+          "expr": "{filename=\"/var/log/host_operations.log\"}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Host logs",
+      "type": "logs"
+    }
+  ],
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Fake router showcase",
+  "uid": "adg6vmp",
+  "version": 8
+}

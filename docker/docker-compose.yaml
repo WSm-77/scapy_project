@@ -26,6 +26,8 @@ services:
         ipv4_address: 10.0.0.20
     stdin_open: true
     tty: true
+    volumes:
+      - host-logs:/var/log
 
   sniffer:
     build:
@@ -69,9 +71,54 @@ services:
         soft: 65536
         hard: 65536
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      net:
+        ipv4_address: 10.0.0.30
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - grafana-config:/etc/grafana
+      - grafana-logs:/var/log/grafana
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    networks:
+      net:
+        ipv4_address: 10.0.0.31
+    volumes:
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - host-logs:/var/log:ro
+      - ./promtail-config.yaml:/etc/promtail/config.yaml
+    command: -config.file=/etc/promtail/config.yaml
+    networks:
+      net:
+        ipv4_address: 10.0.0.32
+    depends_on:
+      - loki
+
 networks:
   net:
     driver: bridge
     ipam:
       config:
         - subnet: 10.0.0.0/24
+
+volumes:
+  grafana-storage:
+  grafana-config:
+  grafana-logs:
+  host-logs:
